@@ -1,0 +1,8 @@
+<RESULT> = <multipart-mainword> | ?<preword-spaced> <preword-spaced> <mainword>
+<preword-spaced> = <preword> " "
+<preword> = <standalone-preword> | <main-prefix> ?[IsolatablePrefix] [PrefixingSuffix]
+<standalone-preword> = ?[MetaPrefix] [StandalonePrefix]
+<mainword> = <simple-mainword> | <multipart-mainword>
+<multipart-mainword> = <main-prefix> <simple-mainword>
+<main-prefix> = [StrictPrefix] | ?[StrictPrefix] [IsolatablePrefix]
+<simple-mainword> = [IsolatablePrefix] [StrictSuffix] | [StandaloneSuffix]
