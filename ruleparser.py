@@ -370,8 +370,8 @@ class Tree:
         return expanded
 
 
-def list_terminals(rules):
-    r"""List all possible terminal sequences from a parsed ruleset.
+def all_terminals(rules):
+    r"""Generate all possible terminal sequences from a parsed ruleset.
 
         >>> test_rules = {INITIAL: [Nonterminal('A'), Literal(' '),
         ...                         Nonterminal('B')],
@@ -379,14 +379,16 @@ def list_terminals(rules):
         ...                     Literal('Goodbye')],
         ...               'B': [Control(OPTION), Literal('cruel '),
         ...                     Literal('world')]}
-        >>> for terminal in list_terminals(test_rules):
+        >>> for terminal in all_terminals(test_rules):
         ...     print(terminal)
-        Goodbye world
-        Goodbye cruel world
         Hello cruel world
         Hello world
+        Goodbye cruel world
+        Goodbye world
 
     """
+    # Store terminal sequences in a set, so that duplicates (sequences which
+    # can be arrived at through more than one production) are weeded out.
     terminals = set()
     ruletree = Tree(Nonterminal(INITIAL))
 
@@ -436,9 +438,10 @@ def list_terminals(rules):
             # For anything else, iterate over its children.
             else:
                 nodes.extend(reversed(next_node.children))
-        terminals.add(''.join(current))
-
-    return terminals
+        terminal = ''.join(current)
+        if terminal not in terminals:
+            terminals.add(terminal)
+            yield terminal
 
 
 if __name__ == '__main__':
@@ -450,6 +453,6 @@ if __name__ == '__main__':
         import doctest
         doctest.testmod()
     else:
-        for n, terminal in enumerate(list_terminals(rules)):
+        for n, terminal in enumerate(all_terminals(rules)):
             print(terminal)
         print(n + 1)
