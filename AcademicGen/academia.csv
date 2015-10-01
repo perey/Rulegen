@@ -1,3 +1,4 @@
+MetaPrefix,StandalonePrefix,StrictPrefix,IsolatablePrefix,StrictSuffix,IsODropping,StandaloneSuffix,PrefixingSuffix
 ,,,actino,,0,,
 ,,,aero,,0,,aerial
 ,,,aesthesio,,0,aesthetics,aesthetic
@@ -8,6 +9,7 @@
 ,analogue,,,,0,,
 ,analytical,,,,0,analysis,analytical
 ,anatomical,,,,0,anatomy,anatomical
+,,,andro,andry,1,,androus
 ,animal,,,,0,,
 ,applied,,,,0,,
 ,aquatic,,,,0,,
@@ -47,7 +49,7 @@ cis,,cis,,,0,,
 ,,,cyber,,0,cybernetics,cybernetic
 ,,,cyto,,0,,
 ,,,demo,,0,,
-,,,dendro,,0,,
+,,,dendro,,0,,dendrous
 ,,,dermato,,0,,dermal
 ,,,,desy,0,,detic
 ,differential,,,,0,,
@@ -102,6 +104,7 @@ extra,,,,,0,,
 ,,,glypho,glyphics,0,,glyphic
 ,,,gnatho,,0,,gnathic
 ,,,grapho,graphy,0,,graphical
+,,,gynaeco,gyny,0,,gynous
 ,,,haemato,,0,,haematic
 ,,,haemo,,0,,haemic
 ,,,hetero,,0,,
@@ -119,6 +122,7 @@ hyper,,hyper,,,0,,
 hypo,,hypo,,,0,,
 ,,,,iatrics,1,,iatric
 ,,,,iatry,1,,iatric
+,,,ichno,,0,,
 ,,,ideo,,0,,
 ,,,immuno,,0,immunity,
 ,impractical,,,,0,,
@@ -270,7 +274,7 @@ super,,super,,,0,,
 ,,,thanato,,0,,
 ,theoretical,,,,0,,
 ,therapeutic,,,,0,therapy,therapeutic
-,,,thermo,,0,,
+,thermal,,thermo,,0,,thermal
 ,tidal,,,,0,,
 ,topical,,,,0,,
 ,,,tomo,tomy,0,,tomic
