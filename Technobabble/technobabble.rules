@@ -5,11 +5,11 @@
 <adjective-phrase> = <adverb-phrase> | ?<pre-adjective> <adjective>
 <pre-adjective> = ?<prefix> <adjective> " "
 <prefix> = [Prefix] "-"
-<adjective> = [Adjective] | <gerund>
-<gerund> = [PastGerund] | [PresentGerund]
+<adjective> = [Adjective] | <Participle>
+<Participle> = [PastParticiple] | [PresentParticiple]
 <adverb-phrase> = [Adverb] "-" <adverb-subject>
-<adverb-subject> = [PastGerund] | [Adjective]
+<adverb-subject> = [PastParticiple] | [Adjective]
 <thing> = ?<spaced-patient> <object>
 <spaced-patient> = <patient> " "
 <patient> = [PatientOrObject] | [Agent]
-<object> = [Agent] | [Object]
+<object> = [Agent] | [PatientOrObject]

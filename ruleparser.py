@@ -89,8 +89,24 @@ class Terminal(Token):
 
 class Literal(Terminal):
     """A string literal in a production rule."""
+    @property
+    def escaped_content(self):
+        # Escape double-quote characters.
+        return self.content.replace('"', '\\"')
+
     def __str__(self):
-        return '"{}"'.format(self.content)
+        return '"{}"'.format(self.escaped_content)
+
+    def escape_brackets(self):
+        """Escape square brackets in the string literal.
+
+        This makes it possible to mix (unquoted) string literals and
+        database lookups in the same string, as the all_terminals()
+        function does.
+
+        """
+        return self.content.translate(str.maketrans({'[': '\\[',
+                                                     ']': '\\]'}))
 
 
 class DBLookup(Terminal):
@@ -238,10 +254,9 @@ def parse_rule(rule):
 
         # When we're escaping a character, we accept anything.
         elif state == ESCAPING_SOMETHING:
-            if char == 'n':
-                content.append('\n')
-            else:
-                content.append(char)
+            # Newlines are not allowed in string literals, even escaped, so
+            # '\n' is not handled specially; it just escapes the letter 'n'.
+            content.append(char)
             state = state_stack.pop()
 
         else:
@@ -373,23 +388,27 @@ class Tree:
 def all_terminals(rules):
     r"""Generate all possible terminal sequences from a parsed ruleset.
 
+    Each result is a string containing only terminal tokens (string
+    literals and database lookups). As database lookups are enclosed in
+    square brackets, any square brackets that appear in string literals
+    are escaped.
         >>> test_rules = {INITIAL: [Nonterminal('A'), Literal(' '),
         ...                         Nonterminal('B')],
         ...               'A': [Literal('Hello'), Control(SELECTION),
         ...                     Literal('Goodbye')],
-        ...               'B': [Control(OPTION), Literal('cruel '),
+        ...               'B': [Control(OPTION), Literal('[cruel] '),
         ...                     Literal('world')]}
         >>> for terminal in all_terminals(test_rules):
         ...     print(terminal)
-        Hello cruel world
+        Hello \[cruel\] world
         Hello world
-        Goodbye cruel world
+        Goodbye \[cruel\] world
         Goodbye world
 
     """
     # Store terminal sequences in a set, so that duplicates (sequences which
     # can be arrived at through more than one production) are weeded out.
-    terminals = set()
+    terminal_seqs = set()
     ruletree = Tree(Nonterminal(INITIAL))
 
     all_leaves_are_terminals = False
@@ -420,7 +439,7 @@ def all_terminals(rules):
             if isinstance(next_node.content, Terminal):
                 assert len(next_node.children) == 0
                 if next_node.content is not None:
-                    current.append(next_node.content.content
+                    current.append(next_node.content.escape_brackets()
                                    if isinstance(next_node.content,
                                                  Literal) else
                                    str(next_node.content))
@@ -438,10 +457,54 @@ def all_terminals(rules):
             # For anything else, iterate over its children.
             else:
                 nodes.extend(reversed(next_node.children))
-        terminal = ''.join(current)
-        if terminal not in terminals:
-            terminals.add(terminal)
-            yield terminal
+        terminal_seq = ''.join(current)
+        if terminal_seq not in terminal_seqs:
+            terminal_seqs.add(terminal_seq)
+            yield terminal_seq
+
+
+def parse_terminals(s):
+    r"""Parse a string for a sequence of terminals.
+
+    The string output from all_terminals() is suitable for saving to a
+    database. This function then turns it back into a sequence containing
+    Literal and DBLookup tokens. Note that this is not guaranteed to
+    reproduce the original tokens, as successive string literals will be
+    collapsed into one.
+        >>> parse_terminals('Hello, \[friend\] [Name]!')
+        [Literal('Hello, [friend] '), DBLookup('Name'), Literal('!')]
+
+    """
+    tokens = []
+    current_token = []
+    state = INSIDE_LITERAL
+    old_states = []
+    for char in s:
+        if state == ESCAPING_SOMETHING:
+            current_token.append(char)
+            state = old_states.pop()
+        elif char == ESCAPE_START:
+            old_states.append(state)
+            state = ESCAPING_SOMETHING
+        elif state == INSIDE_LITERAL:
+            if char == DBLOOKUP_START:
+                tokens.append(Literal(''.join(current_token)))
+                current_token = []
+                state = INSIDE_DBLOOKUP
+            else:
+                current_token.append(char)
+        elif state == INSIDE_DBLOOKUP:
+            if char == DBLOOKUP_END:
+                tokens.append(DBLookup(''.join(current_token)))
+                current_token = []
+                state = INSIDE_LITERAL
+            else:
+                current_token.append(char)
+    if state != INSIDE_LITERAL:
+        raise ParseError('EOL')
+    else:
+        tokens.append(Literal(''.join(current_token)))
+    return tokens
 
 
 if __name__ == '__main__':
