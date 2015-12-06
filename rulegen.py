@@ -397,3 +397,6 @@ def _academia_postprocess(self, result):
     finally:
         conn.close()
 academia.postprocess = types.MethodType(_academia_postprocess, academia)
+
+
+technobabble = Rulegen('technobabble', 'Technobabble')
