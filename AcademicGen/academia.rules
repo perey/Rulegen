@@ -1,8 +1,9 @@
-<RESULT> = <multipart-mainword> | ?<preword-spaced> <preword-spaced> <mainword>
+<RESULT> = <multipart-mainword> | ?<short-preword-spaced> <preword-spaced> <mainword>
+<short-preword-spaced> = <short-preword> " "
 <preword-spaced> = <preword> " "
-<preword> = <standalone-preword> | <main-prefix> ?[IsolatablePrefix] [PrefixingSuffix]
-<standalone-preword> = ?[MetaPrefix] [StandalonePrefix]
+<short-preword> = ?[MetaPrefix] [StandalonePrefix]
+<preword> = <short-preword> | <main-prefix> ?[IsolatablePrefix] [PrefixingSuffix]
 <mainword> = <simple-mainword> | <multipart-mainword>
 <multipart-mainword> = <main-prefix> <simple-mainword>
-<main-prefix> = [StrictPrefix] | ?[StrictPrefix] [IsolatablePrefix]
+<main-prefix> = [StrictPrefix] | [IsolatablePrefix]
 <simple-mainword> = [IsolatablePrefix] [StrictSuffix] | [StandaloneSuffix]
