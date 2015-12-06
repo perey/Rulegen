@@ -358,7 +358,7 @@ class Rulegen:
 
 
 # Included generators.
-academia = Rulegen('academia', 'AcademicGen')
+academia = Rulegen('academia', 'Academia')
 def _academia_postprocess(self, result):
     """Delete doubled letters and drop O suffixes where necessary."""
     if not os.path.isfile(self.dbfile):
