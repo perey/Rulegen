@@ -10,6 +10,7 @@ MetaPrefix,StandalonePrefix,StrictPrefix,IsolatablePrefix,StrictSuffix,IsODroppi
 ,analytical,,,,0,analysis,analytical
 ,anatomical,,,,0,anatomy,anatomical
 ,,,andro,andry,1,,androus
+,,,angio,,0,,
 ,animal,,,,0,,
 ,applied,,,,0,,
 ,aquatic,,,,0,,
@@ -20,15 +21,17 @@ MetaPrefix,StandalonePrefix,StrictPrefix,IsolatablePrefix,StrictSuffix,IsODroppi
 ,,,audio,,0,acoustics,acoustic
 ,,,auto,,0,,
 ,avian,,ornitho,,0,,
+,,,balneo,,0,,
 ,behavioural,,,,0,,
-,,,bio,,0,bionics,
+,,,bio,biosis,0,bionics,biotic
 ,,,,,0,,bolic
 ,botanical,,,,0,botany,botanical
+,,,capno,,0,,
 ,,,carcino,,0,,
 ,cardiac,,cardio,,0,,
 ,,,carto,,0,,
 ,celestial,,,,0,,
-,cellular,,,,0,,
+,cellular,,cyto,,0,,
 ,,,chemo,,0,chemistry,chemical
 ,,,chiro,,0,,
 ,chromatic,,chromo,,0,,
@@ -47,7 +50,7 @@ cis,,cis,,,0,,
 ,,,crypto,,0,,cryptic
 ,cultural,,,,0,,
 ,,,cyber,,0,cybernetics,cybernetic
-,,,cyto,,0,,
+,,,dactylo,,0,,
 ,,,demo,,0,,
 ,,,dendro,,0,,dendrous
 ,,,dermato,,0,,dermal
@@ -89,6 +92,7 @@ extra,,,,,0,,
 ,food,,,,0,,
 ,forensic,,,,0,forensics,forensic
 ,formal,,,,0,,
+,friction,,tribo,,0,,
 ,fundamental,,,,0,,
 ,galactic,,,,0,,
 ,,,gastro,,0,,gastric
@@ -103,10 +107,12 @@ extra,,,,,0,,
 ,,,glyco,,0,,
 ,,,glypho,glyphics,0,,glyphic
 ,,,gnatho,,0,,gnathic
+,,,gnoseo,gnosis,0,,gnostic
 ,,,grapho,graphy,0,,graphical
 ,,,gynaeco,gyny,0,,gynous
 ,,,haemato,,0,,haematic
 ,,,haemo,,0,,haemic
+,haploid,,haplo,,0,,
 ,,,hetero,,0,,
 ,high-energy,,,,0,,
 ,,,histo,,0,,
@@ -144,6 +150,7 @@ inter,,inter,,,0,,
 ,,,logo,logy,0,,logical
 ,,,,lysis,0,,lytic
 macro,,macro,,,0,,
+,,,malaco,,0,,
 ,marine,,,,0,,
 ,maritime,,,,0,,
 ,material,,,,0,,
@@ -185,6 +192,7 @@ non,,,,,0,,
 ,,,onomato,,0,,onomastic
 ,,,onto,,0,,
 ,,,oo,,0,,
+,,,ophio,,0,,
 ,,,ophthalmo,,0,,ophthalmic
 ,,,opto,,0,optics,optical
 ,organic,,organo,,0,,
@@ -247,6 +255,7 @@ pre,prehistoric,pre,,,0,,
 ,,,scoto,,0,,
 ,secondary,,,,0,,
 ,,,seismo,,0,,
+,semiotic,,semio,,0,semiotics,semous
 ,,,sero,,0,,
 ,sexual,,sexo,,0,,
 ,,,socio,,0,,
@@ -293,3 +302,4 @@ trans,transitional,trans,,,0,,
 xeno,,xeno,,,0,,
 ,,,xylo,,0,,
 ,,,zoo,,0,,
+,,,zymo,,0,,zymous
