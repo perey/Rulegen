@@ -271,7 +271,7 @@ pre,prehistoric,pre,,,0,,
 sub,,sub,,,0,,
 super,,super,,,0,,
 ,sustainable,,,,0,sustainability,sustainable
-,sympathetic,,,,,,
+,sympathetic,,,,0,,
 ,,,symptomato,,0,,symptomatic
 ,synthetic,,,,0,synthesis,synthetic
 ,systems,,,,0,,
@@ -295,7 +295,7 @@ trans,transitional,trans,,,0,,
 ,urban,,,,0,,
 ,,,uro,,0,,
 ,vacuum,,,,0,,
-,vascular,,,,0,,
+,vascular,,vaso,,0,,vascular
 ,,,video,,0,,
 ,viral,,viro,,0,,
 ,,,vulcano,,0,,
