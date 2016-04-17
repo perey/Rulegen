@@ -363,39 +363,26 @@ def _academia_postprocess(self, result):
     """Delete doubled letters and drop O suffixes where necessary."""
     if not os.path.isfile(self.dbfile):
         self.build_db()
-    conn = sqlite3.connect(self.dbfile, detect_types=sqlite3.PARSE_DECLTYPES)
 
-    try:
-        previous_end = None
-        for n, (text, colname) in enumerate(result):
-            changed = False
-            # Does this string duplicate the last letter of the previous?
-            if text[0] == previous_end:
+    previous_end = None
+    for n, (text, colname) in enumerate(result):
+        changed = False
+        # Does this string duplicate the last letter of the previous?
+        if text[0] == previous_end:
+            changed = True
+            text = text[1:]
+
+        # Does the next string make this one drop an O?
+        if text[-1] == 'o' and n + 1 < len(result):
+            next_text, _ = result[n + 1]
+            if next_text[0] in 'aeiou':
                 changed = True
-                text = text[1:]
+                text = text[:-1]
 
-            # Does the next string make this one drop an O?
-            if text[-1] == 'o' and n + 1 < len(result):
-                next_text, next_colname = result[n + 1]
-                if next_colname is not None:
-                    cur = conn.cursor()
-                    query = ('SELECT r.IsODropping'
-                             ' FROM {!r} r'
-                             ' WHERE r.{!r} = {!r}'
-                             ' LIMIT 1'.format(self.roots_table, next_colname,
-                                               next_text))
-                    cur.execute(query)
-                    row = cur.fetchone()
-                    if row[0]:
-                        changed = True
-                        text = text[:-1]
-
-            # Were any changes made?
-            if changed:
-                result[n] = (text, colname)
-            previous_end = text[-1]
-    finally:
-        conn.close()
+        # Were any changes made?
+        if changed:
+            result[n] = (text, colname)
+        previous_end = text[-1]
 academia.postprocess = types.MethodType(_academia_postprocess, academia)
 
 
